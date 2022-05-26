@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weather/Pages/widgets/mixin/weather.dart';
 import 'package:weather/utils/time_widget.dart';
 
-import 'package:weather/utils/weather_info.dart';
 
 class WeatherScreen extends StatelessWidget with Weather {
   WeatherScreen({Key? key, required weatherInfo}) : super(key: key) {

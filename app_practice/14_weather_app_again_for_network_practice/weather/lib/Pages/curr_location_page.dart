@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:weather/utils/weather_info.dart';
 
-import 'package:weather/utils/weather_networking.dart' as weather;
+import 'package:weather/utils/weather_networking.dart' as weather_api;
 
 import 'widgets/weather_screen.dart';
 
 class CurrLocationWeatherPage extends StatelessWidget {
-  const CurrLocationWeatherPage({Key? key}) : super(key: key);
+  const CurrLocationWeatherPage({Key? key, this.appBar, this.future})
+      : super(key: key);
+
+  final AppBar? appBar;
+  final Future<WeatherInfo>? future;
 
   FutureBuilder<WeatherInfo> _currLocationWeatherPage() {
     return FutureBuilder<WeatherInfo>(
-      future: weather.requestCurrLoc,
+      future: future ?? weather_api.requestCurrLoc,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
@@ -34,6 +38,7 @@ class CurrLocationWeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar,
       body: _currLocationWeatherPage(),
     );
   }

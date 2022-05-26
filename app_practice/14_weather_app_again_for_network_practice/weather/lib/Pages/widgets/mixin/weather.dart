@@ -1,3 +1,4 @@
+/// https://quickbirdstudios.com/blog/flutter-dart-mixins/
 import 'package:flutter/material.dart';
 import 'package:weather/utils/weather_info.dart';
 
@@ -16,23 +17,26 @@ mixin Weather {
           ? weatherInfo.country
           : weatherInfo.region);
 
-  Widget weatherRow() {
+  Widget weatherRow({bool card = false}) {
+    List<Widget> children = [
+      Text(
+        '${weatherInfo.tempC}',
+        style: const TextStyle(fontSize: 80),
+      ),
+      Container(
+        padding: const EdgeInsets.only(bottom: 30),
+        child: const Text(
+          '°C',
+          style: TextStyle(fontSize: 30),
+        ),
+      ),
+    ];
+
+    if (!card) children.add(Image.network(weatherInfo.iconUrl, scale: 0.7));
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          '${weatherInfo.tempC}',
-          style: const TextStyle(fontSize: 80),
-        ),
-        Container(
-          padding: const EdgeInsets.only(bottom: 30),
-          child: const Text(
-            '°C',
-            style: TextStyle(fontSize: 30),
-          ),
-        ),
-        Image.network(weatherInfo.iconUrl)
-      ],
+      children: children,
     );
   }
 }

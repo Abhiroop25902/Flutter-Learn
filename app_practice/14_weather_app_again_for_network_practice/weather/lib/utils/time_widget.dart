@@ -17,6 +17,7 @@ class TimeWidget extends StatefulWidget {
 class _TimeWidgetState extends State<TimeWidget> {
   String _timeString = "";
   late DateTime time;
+  late Timer _timer;
 
   String get timeString => DateFormat(DateFormat.HOUR_MINUTE).format(time);
 
@@ -32,7 +33,8 @@ class _TimeWidgetState extends State<TimeWidget> {
 
     time = DateTime.parse(timeStr);
     _timeString = timeString;
-    Timer.periodic(const Duration(seconds: 1), (timer) => _updateTime());
+    _timer =
+        Timer.periodic(const Duration(seconds: 1), (timer) => _updateTime());
     super.initState();
   }
 
@@ -49,5 +51,11 @@ class _TimeWidgetState extends State<TimeWidget> {
       _timeString,
       style: widget.textStyle,
     );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 }
